@@ -75,7 +75,7 @@ const projects = [
   {
     name: "RealityCheck",
     blurb:
-      "Python-powered rent/mortgage calculator with price-to-income heat-maps. Built with Pandas & Plotly for quick, interactive insights.",
+      "FastAPI service with 5 LangChain agents classifying news by topic & sentiment.Agents ingest RSS feeds, perform NLP-based categorization, and output JSON payloads.",
     repo: "https://github.com/AnshBhanushali/RealityCheck",
     tech: [
       { Icon: SiPython, color: "#3776ab" },
