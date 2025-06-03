@@ -65,7 +65,7 @@ export function SectionTwo() {
               className="h-full w-full"
             >
               <Image
-                src="/myai.webp"
+                src="/myai2.jpeg"
                 alt="AR tablet mock-up"
                 fill
                 priority
@@ -73,7 +73,7 @@ export function SectionTwo() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <h3 className="relative z-10 max-w-sm p-6 text-2xl font-semibold leading-tight">
-                Building immersive 3-D UIs with neural rendering
+              Crafting intelligent systems that blend neural rendering and interactivity
               </h3>
             </motion.div>
           </Tilt>
