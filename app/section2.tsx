@@ -1,4 +1,4 @@
-/* ---------- SECTION 2 (GRID, v2) ---------- */
+// app/section2.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -38,11 +38,11 @@ export function SectionTwo() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <h3 className="relative z-10 max-w-sm p-6 text-2xl font-semibold leading-tight">
-            Researching neural rendering &amp; immersive 3‑D UI workflows
+            Researching neural rendering &amp; immersive 3-D UI workflows
           </h3>
         </motion.article>
 
-        {/* === 2 ▸ Always‑on Collaboration === */}
+        {/* === 2 ▸ Always-on Collaboration === */}
         <motion.article
           custom={1}
           variants={reveal}
@@ -52,7 +52,7 @@ export function SectionTwo() {
           className="relative flex flex-col justify-between overflow-hidden rounded-3xl bg-[#11121d] p-6"
         >
           <h3 className="text-xl font-semibold">
-            Across‑time‑zone collaboration
+            Across-time-zone collaboration
           </h3>
 
           <motion.div
@@ -116,11 +116,12 @@ export function SectionTwo() {
           className="flex items-center rounded-3xl bg-[#11121d] p-6"
         >
           <p className="text-xl font-semibold leading-snug">
-            Infinite curiosity, grounded in <span className="text-sky-400">clean code</span>.
+            Infinite curiosity, grounded in{" "}
+            <span className="text-sky-400">clean code</span>.
           </p>
         </motion.article>
 
-        {/* === 5 ▸ Call‑to‑Action (gradient) === */}
+        {/* === 5 ▸ Call-to-Action (gradient) === */}
         <motion.article
           custom={4}
           variants={reveal}
@@ -143,7 +144,7 @@ export function SectionTwo() {
           </div>
         </motion.article>
 
-        {/* === 6 ▸ Code‑Meets‑Design (2 cols) === */}
+        {/* === 6 ▸ Code-Meets-Design (2 cols) === */}
         <motion.article
           custom={5}
           variants={reveal}
@@ -164,7 +165,7 @@ export function SectionTwo() {
               Spotlight
             </span>
             <h3 className="text-2xl font-semibold leading-tight">
-              Bridging design &amp; engineering with real‑time GPU shaders
+              Bridging design &amp; engineering with real-time GPU shaders
             </h3>
           </div>
         </motion.article>
