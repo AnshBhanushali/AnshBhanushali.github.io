@@ -26,7 +26,7 @@ export function SectionTwo() {
   // Determine local UTC offset for display
   const offset = new Date().getTimezoneOffset() / -60;
   const formattedOffset =
-    (offset >= 0 ? "+" : "-") + String(Math.abs(offset)).padStart(2, "0") + ":00";
+    (offset >= 0 ? "+" : "-") + String(Math.abs(offset)).padStart(2, "00") + ":00";
 
   // Tech stack array
   const techStack = [
@@ -305,16 +305,14 @@ export function SectionTwo() {
             flex items-end justify-end
           `}
         >
-          {/* responsive image container with explicit height on mobile */}
-          <div className="relative w-full h-48 sm:h-64 lg:h-auto">
-            <Image
-              src="/ai.png"
-              alt="Workspace with code & design"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/45 to-black/90" />
-          </div>
+          {/* fill entire card with the image */}
+          <Image
+            src="/ai.png"
+            alt="Workspace with code & design"
+            fill
+            className="absolute inset-0 object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/45 to-black/90" />
           <div className="relative z-10 flex w-full flex-col justify-end gap-2 p-4 sm:p-6">
             <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-400">
               Spotlight
