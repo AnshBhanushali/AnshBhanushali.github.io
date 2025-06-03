@@ -1,7 +1,6 @@
 // app/section5.tsx
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { HiOutlineOfficeBuilding, HiOutlineCalendar } from "react-icons/hi";
 import {
