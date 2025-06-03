@@ -13,7 +13,7 @@ export default function Hero() {
       </h1>
 
       <p className="mt-6 max-w-xl text-base sm:text-lg md:text-xl text-gray-200 px-2">
-        I design &amp; code immersive, AI-driven experiences that feel right in the metaverse.
+        Hii, I am Ansh Bhanushali. I design &amp; code immersive, AI-driven experiences that feel right in the metaverse.
       </p>
 
       <Link
