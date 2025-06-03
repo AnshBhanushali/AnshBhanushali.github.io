@@ -23,24 +23,25 @@ const hoverFX =
    hover:shadow-[0_0_28px_-6px_rgba(0,192,255,0.45)] transition";
 
 export function SectionTwo() {
-  // Extended tech stack array (duplicated later for seamless marquee)
-  const techTags = [
-    "Next.js",
-    "TypeScript",
+  // Determine local UTC offset for display
+  const offset = new Date().getTimezoneOffset() / -60;
+  const formattedOffset =
+    (offset >= 0 ? "+" : "-") + String(Math.abs(offset)).padStart(2, "0") + ":00";
+
+  // Tech stack array (split so each appears in its own box)
+  const techStack = [
+    "MERN",
     "React",
+    "Flask",
+    "Next.js",
+    "FastAPI",
     "Node.js",
     "Express",
     "MongoDB",
-    "GraphQL",
-    "Tailwind CSS",
-    "Prisma",
+    "TypeScript",
     "Docker",
     "Kubernetes",
-    "AWS",
-    "Azure",
-    "LangChain",
-    "FastAPI",
-    "PostgreSQL",
+    "GraphQL",
   ];
 
   return (
@@ -57,7 +58,6 @@ export function SectionTwo() {
           viewport={{ once: true }}
           className={`relative col-span-2 row-span-2 overflow-hidden rounded-3xl bg-[#11121d] ${hoverFX}`}
         >
-          {/* Tilt now covers full height/width */}
           <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} className="h-full w-full">
             <motion.div
               animate={{ y: [0, -12, 0] }}
@@ -79,7 +79,7 @@ export function SectionTwo() {
           </Tilt>
         </motion.article>
 
-        {/* 2 ▸ Rotating globe + enhanced timezone subtitle */}
+        {/* 2 ▸ Rotating globe + timezone */}
         <motion.article
           custom={1}
           variants={reveal}
@@ -103,7 +103,7 @@ export function SectionTwo() {
             className="relative mx-auto mb-4 h-40 w-40 rounded-full overflow-hidden"
           >
             <Image
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Globe_icon.svg/1024px-Globe_icon.svg.png"
+              src="/myglobe.png"
               alt="Digital globe"
               fill
               className="object-cover opacity-90"
@@ -126,47 +126,39 @@ export function SectionTwo() {
                   d="M12 8v4l3 3m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              Current UTC Offset: {new Date().getTimezoneOffset() / -60 >= 0 ? "+" : "-"}
-              {String(Math.abs(new Date().getTimezoneOffset() / 60)).padStart(2, "0")}:00
+              Current UTC Offset: {formattedOffset}
             </span>
           </div>
         </motion.article>
 
-        {/* 3 ▸ Tech tags with horizontal marquee */}
+        {/* 3 ▸ Tech-stack card (styled like the screenshot) */}
         <motion.article
           custom={2}
           variants={reveal}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className={`relative flex flex-col overflow-hidden rounded-3xl bg-[#11121d] p-6 ${hoverFX}`}
+          className={`flex overflow-hidden rounded-3xl bg-[#11121d] ${hoverFX}`}
         >
-          <h4 className="text-xs uppercase tracking-widest text-gray-400 mb-4">
-            Core tech stack
-          </h4>
-
-          {/* Marquee container */}
-          <div className="relative overflow-hidden h-10">
-            <motion.div
-              className="flex items-center gap-4 whitespace-nowrap"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-            >
-              {/* Duplicate tags so marquee loops seamlessly */}
-              {[...techTags, ...techTags].map((tag, idx) => (
-                <span
-                  key={`${tag}-${idx}`}
-                  className="rounded-xl bg-[#1b1c29] px-4 py-1 text-sm font-medium transition"
-                >
-                  {tag}
-                </span>
-              ))}
-            </motion.div>
+          {/* Left side: heading/text */}
+          <div className="flex-1 flex flex-col justify-center px-6">
+            <p className="text-sm text-gray-400">I constantly try to improve</p>
+            <h3 className="mt-2 text-3xl font-bold leading-snug">
+              My tech stack
+            </h3>
           </div>
 
-          <p className="mt-4 text-xs text-gray-500">
-            (scrolling left to right, infinite loop)
-          </p>
+          {/* Right side: grid of tech tags */}
+          <div className="flex-1 grid grid-cols-2 gap-x-4 gap-y-3 p-6">
+            {techStack.map((tech) => (
+              <span
+                key={tech}
+                className="flex items-center justify-center rounded-lg border border-gray-600 px-4 py-2 text-center text-sm font-medium transition hover:border-sky-500"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </motion.article>
 
         {/* 4 ▸ Enhanced “Infinite curiosity” bio */}
@@ -188,7 +180,7 @@ export function SectionTwo() {
               Fueling innovation with boundless curiosity
             </h3>
             <p className="mt-2 text-sm text-gray-300">
-              Grounded in elegant solutions and clean code, never settling for “just enough.”
+              Grounded in elegant solutions and clean code—never settling for “just enough.”
             </p>
             <div className="mt-4 inline-flex items-center justify-center gap-2 text-gray-500">
               <svg
@@ -225,7 +217,7 @@ export function SectionTwo() {
               href="mailto:bhanusad@mail.uc.edu"
               className="rounded-full border border-white/20 px-6 py-2 text-sm backdrop-blur hover:bg-white/10"
             >
-              Let’s talk&nbsp;→
+              Let’s talk →
             </Link>
           </div>
         </motion.article>
