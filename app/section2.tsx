@@ -64,7 +64,7 @@ export function SectionTwo() {
           `}
         >
           {/* Left side: Overview text */}
-          <div className="flex-1 p-6 lg:pr-12 lg:pl-8 flex flex-col justify-center">
+          <div className="flex-1 p-4 lg:pr-12 lg:pl-8 flex flex-col justify-center">
             <h3 className="text-2xl sm:text-3xl font-semibold leading-snug mb-4">About Me</h3>
 
             <p className="text-xs sm:text-sm text-gray-300 mb-2">
