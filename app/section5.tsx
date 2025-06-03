@@ -5,11 +5,13 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiChevronDown } from "react-icons/hi";
 import {
-  SiPython,
-  SiNextdotjs,
+
   SiDocker,
-  SiTensorflow,
+
+  SiNextdotjs,
   SiPostgresql,
+  SiPython,
+  SiTensorflow,
 } from "react-icons/si";
 
 /* ---------- DATA ---------- */
@@ -23,14 +25,32 @@ type Job = {
 
 const jobs: Job[] = [
   {
-    title: "Research Assistant – Software R&D",
+    title: "Software Engineer – Generative AI & Cloud",
+    company: "Siemens Digital Industries",
+    dates: "Aug 2024 – Present",
+    summary: [
+      "Architected a RAG-powered knowledge service on Azure Kubernetes Service using LangChain and Azure OpenAI for industrial troubleshooting.",
+      "Developed Next.js dashboard with real-time inference from a PyTorch GPT-based model hosted on AWS SageMaker endpoints.",
+      "Containerized microservices with Docker; configured CI/CD pipelines in GitHub Actions for automated model retraining on new telemetry data.",
+      "Implemented enterprise-grade security: OAuth2 authentication, Azure Key Vault for secrets, and Azure Functions for serverless event processing.",
+    ],
+    tech: [
+      SiNextdotjs,
+      SiPython,
+      SiDocker,
+      SiTensorflow,
+      SiPostgresql,
+    ],
+  },
+  {
+    title: "Research Assistant – Voice Modulation R&D",
     company: "Dr. Novak Lab",
     dates: "Apr 2024 – Jan 2025",
     summary: [
-      "Developed a PyTorch-based real-time voice-modulation network, reducing latency to < 50 ms for on-device inference.",
-      "Built a React/Next.js dashboard with WebSocket streams for live audio-feature visualization.",
-      "Implemented TensorFlow Lite vocal-tract synthesis pipeline for mobile-friendly deployment.",
-      "Automated CI/CD with GitHub Actions and Docker containers to manage nightly model training runs.",
+      "Designed a real-time neural voice-modulation pipeline in PyTorch, achieving sub-50 ms latency on CPU for live audio streams.",
+      "Integrated a GAN-based vocal-tract synthesis model into a React/Next.js UI for on-the-fly pitch shifting and timbre control.",
+      "Built a Flask API serving TensorFlow Lite quantized models; optimized INT8 inference for mobile devices.",
+      "Automated data labeling workflows with Python scripts on AWS S3; used Weights & Biases for training dashboard and hyperparameter tracking.",
     ],
     tech: [SiPython, SiNextdotjs, SiTensorflow, SiDocker],
   },
@@ -39,24 +59,12 @@ const jobs: Job[] = [
     company: "CEAS Innovation Lab",
     dates: "Aug 2023 – Dec 2023",
     summary: [
-      "Engineered FastAPI microservices for predictive-maintenance, leveraging scikit-learn on telemetry data.",
-      "Containerized anomaly-detection models with Docker and deployed on Azure Kubernetes Service (AKS).",
-      "Ingested real-time sensor streams via Kafka; visualized live failure probabilities in Plotly dashboards.",
-      "Orchestrated ETL pipelines using Apache Airflow; secured REST endpoints with JWT authentication.",
+      "Led development of a FastAPI microservice for real-time anomaly detection using scikit-learn on sensor data.",
+      "Containerized ML pipelines with Docker; deployed on Azure Container Instances and scheduled retraining via Azure DevOps.",
+      "Built a Next.js frontend to visualize time-series metrics with Plotly; implemented WebSocket streams for live monitoring.",
+      "Designed PostgreSQL schema for telemetry storage; integrated Grafana for dashboarding and alerting on critical KPIs.",
     ],
-    tech: [SiPython, SiDocker, SiPostgresql ],
-  },
-  {
-    title: "Software Engineer – Industrial IoT",
-    company: "Siemens Digital Industries",
-    dates: "Aug 2024 – Present",
-    summary: [
-      "Leading AWS serverless development: authored Lambda functions for real-time anomaly detection (PyTorch + SageMaker).",
-      "Built Next.js/Tailwind UI to display live equipment metrics over MQTT and WebSocket.",
-      "Containerized inference services with Docker; orchestrated on ECS Fargate for scalable ML deployment.",
-      "Implemented CI/CD pipelines via GitHub Actions; enforced end-to-end encryption using AWS KMS.",
-    ],
-    tech: [SiPython, SiNextdotjs, SiDocker],
+    tech: [SiPython, SiNextdotjs, SiDocker, SiPostgresql],
   },
 ];
 
@@ -85,7 +93,7 @@ export default function SectionFive() {
           const isOpen = openIdx === i;
           return (
             <motion.article
-              key={j.title}
+              key={j.company + j.title}
               initial="compact"
               animate={isOpen ? "open" : "compact"}
               variants={container}
