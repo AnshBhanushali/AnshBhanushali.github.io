@@ -3,6 +3,7 @@
 import Hero from "./Hero";
 import { SectionTwo } from "./section2";
 import SectionThree from "./section3";
+import SectionFour from "./section4"
 
 export const metadata = {
   title: "Ansh Bhanushali | Metaverse-Ready Engineer",
@@ -18,6 +19,7 @@ export default function Page() {
       {/* ===== SECTION TWO (Grid Section) ===== */}
       <SectionTwo />
       <SectionThree />
+      <SectionFour />
 
       import SectionThree from "@/components/SectionThree";
     </main>
