@@ -1,240 +1,101 @@
-// components/SectionThree.tsx
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  CodeBracketIcon,
-  CpuChipIcon,
-  Squares2X2Icon,
-  ServerStackIcon,
-  CloudIcon,
-  Cog6ToothIcon,
-} from "@heroicons/react/24/solid";
-import clsx from "clsx";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Sphere, Html, Stars } from "@react-three/drei";
+import { Suspense } from "react";
 
-/* ---------- Type Definitions ---------- */
-interface Skill {
+type Pin = {
   label: string;
-  level: number;
-}
+  lat: number;   // in degrees
+  lon: number;   // in degrees
+  color?: string;
+};
 
-interface Category {
-  title: string;
-  icon: React.ForwardRefExoticComponent<React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & { title?: string; titleId?: string; } & React.RefAttributes<SVGSVGElement>>;
-  short: string[];
-  full: Skill[];
-}
-
-/* ---------- Data ---------- */
-const categories: Category[] = [
-  {
-    title: "Programming Languages",
-    icon: CodeBracketIcon,
-    short: ["TypeScript", "Python", "C++", "+4"],
-    full: [
-      { label: "TypeScript", level: 0.95 },
-      { label: "Python", level: 0.9 },
-      { label: "C++", level: 0.8 },
-      { label: "Java", level: 0.8 },
-      { label: "Rust", level: 0.6 },
-    ],
-  },
-  {
-    title: "Engineering Concepts",
-    icon: CpuChipIcon,
-    short: ["DSA", "System Design", "Patterns"],
-    full: [
-      { label: "Data Structures", level: 0.95 },
-      { label: "Algorithms", level: 0.9 },
-      { label: "System Design", level: 0.85 },
-      { label: "Design Patterns", level: 0.8 },
-    ],
-  },
-  {
-    title: "Frontend Toolkit",
-    icon: Squares2X2Icon,
-    short: ["Next.js", "Tailwind", "React"],
-    full: [
-      { label: "React", level: 0.93 },
-      { label: "Next.js (App Router)", level: 0.9 },
-      { label: "Tailwind CSS", level: 0.95 },
-      { label: "Framer Motion", level: 0.85 },
-      { label: "Three.js", level: 0.7 },
-    ],
-  },
-  {
-    title: "Backend & Serverless",
-    icon: ServerStackIcon,
-    short: ["FastAPI", "Node", "gRPC"],
-    full: [
-      { label: "FastAPI", level: 0.9 },
-      { label: "Express / Node", level: 0.88 },
-      { label: "gRPC", level: 0.7 },
-      { label: "WebSockets", level: 0.8 },
-    ],
-  },
-  {
-    title: "Data & AI",
-    icon: Cog6ToothIcon,
-    short: ["LangChain", "Pandas", "LLMs"],
-    full: [
-      { label: "LangChain / RAG", level: 0.85 },
-      { label: "scikit-learn", level: 0.8 },
-      { label: "PyTorch", level: 0.75 },
-      { label: "Vector DBs", level: 0.7 },
-    ],
-  },
-  {
-    title: "DevOps / Cloud",
-    icon: CloudIcon,
-    short: ["Docker", "Azure", "CI/CD"],
-    full: [
-      { label: "Docker", level: 0.88 },
-      { label: "Kubernetes Basics", level: 0.6 },
-      { label: "Azure & AWS", level: 0.7 },
-      { label: "GitHub Actions", level: 0.8 },
-    ],
-  },
+/* ----  add / edit your stack here  ---- */
+const pins: Pin[] = [
+  { label: "TypeScript", lat: 40, lon: -75, color: "#3178c6" },
+  { label: "Python", lat: 30, lon: 10, color: "#3776ab" },
+  { label: "Next.js", lat: -20, lon: 120, color: "#ffffff" },
+  { label: "LangChain", lat: 10, lon: -140, color: "#8e44ad" },
+  { label: "FastAPI", lat: -35, lon: -45, color: "#009688" },
+  { label: "Docker", lat: 60, lon: 60, color: "#0db7ed" },
+  { label: "Azure", lat: 0, lon: 0, color: "#0078d4" },
+  { label: "PostgreSQL", lat: -10, lon: 80, color: "#336791" },
+  // …add as many as you like
 ];
 
-/* ---------- Animation Variants ---------- */
-const listVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
+/* ---- helpers ---- */
+const toCartesian = (lat: number, lon: number, radius = 1.01) => {
+  const phi = (90 - lat) * (Math.PI / 180);
+  const theta = (lon + 180) * (Math.PI / 180);
+  return [
+    -radius * Math.sin(phi) * Math.cos(theta),
+    radius * Math.cos(phi),
+    radius * Math.sin(phi) * Math.sin(theta),
+  ];
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const barVariants = {
-  initial: { width: 0 },
-  animate: (width: string) => ({
-    width,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-  }),
-};
-
-/* ---------- Child Component: TechCategoryCard ---------- */
-interface TechCategoryCardProps {
-  category: Category;
-  isOpen: boolean;
-  onToggle: () => void;
-}
-
-function TechCategoryCard({ category, isOpen, onToggle }: TechCategoryCardProps) {
-  const Icon = category.icon;
-  const contentId = `category-content-${category.title.replace(/\s+/g, '-')}`;
-
+export default function TechGlobe() {
   return (
-    <motion.div
-      layout
-      className={clsx(
-        "rounded-3xl bg-[#10111c] p-6 overflow-hidden",
-        "transition-shadow duration-300",
-        isOpen
-          ? "ring-2 ring-fuchsia-600/40 shadow-[0_0_28px_-6px_rgba(200,0,255,0.35)]"
-          : "hover:ring-2 hover:ring-sky-500/40 hover:shadow-lg"
-      )}
-    >
-      <motion.button
-        onClick={onToggle}
-        onKeyPress={(e) => (e.key === 'Enter' || e.key === ' ') && onToggle()}
-        aria-expanded={isOpen}
-        aria-controls={contentId}
-        className="w-full text-left focus:outline-none"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        <header className="flex items-center gap-4">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1b1c29]">
-            <Icon className="h-6 w-6 text-gray-400" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-100">{category.title}</h3>
-        </header>
-      </motion.button>
+    <section id="tech-globe" className="h-screen w-full bg-[#060818]">
+      <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }}>
+        {/* tiny stars in background */}
+        <Stars radius={100} depth={50} count={10000} factor={4} fade />
 
-      <AnimatePresence initial={false}>
-        <motion.div
-          id={contentId}
-          key="content"
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={listVariants}
-          className="mt-6"
-        >
-          {isOpen ? (
-            <motion.div className="space-y-4">
-              {category.full.map((skill) => (
-                <motion.div key={skill.label} variants={itemVariants}>
-                  <div className="mb-1 flex justify-between text-sm font-medium text-gray-200">
-                    <span>{skill.label}</span>
-                    <span>{`${Math.round(skill.level * 100)}%`}</span>
-                  </div>
-                  <div className="h-2 w-full rounded bg-[#22232f]">
-                    <motion.div
-                      className="h-full rounded bg-fuchsia-500"
-                      variants={barVariants}
-                      initial="initial"
-                      animate="animate"
-                      custom={`${skill.level * 100}%`}
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.ul className="flex flex-wrap gap-2">
-              {category.short.map((tech) => (
-                <motion.li
-                  key={tech}
-                  variants={itemVariants}
-                  className="rounded-md bg-[#1b1c29] px-3 py-1 text-xs font-medium text-gray-300"
-                >
-                  {tech}
-                </motion.li>
-              ))}
-            </motion.ul>
-          )}
-        </motion.div>
-      </AnimatePresence>
-    </motion.div>
-  );
-}
+        {/* softly glowing planet */}
+        <Suspense fallback={null}>
+          <Sphere args={[1, 64, 64]}>
+            <meshStandardMaterial
+              color="#0c1023"
+              emissive="#15193a"
+              emissiveIntensity={0.3}
+              metalness={0.4}
+              roughness={0.7}
+            />
+          </Sphere>
+        </Suspense>
 
+        {/* tech pins */}
+        {pins.map((p) => {
+          const [x, y, z] = toCartesian(p.lat, p.lon);
+          return (
+            <group key={p.label} position={[x, y, z]}>
+              {/* pin glow */}
+              <mesh>
+                <sphereGeometry args={[0.015, 16, 16]} />
+                <meshBasicMaterial color={p.color || "#f0f"} />
+              </mesh>
 
-/* ---------- Main Component: SectionThree ---------- */
-export default function SectionThree() {
-  const [openCategory, setOpenCategory] = useState<number | null>(null);
+              {/* floating label always faces camera */}
+              <Html
+                distanceFactor={8}
+                wrapperClass="select-none"
+                style={{
+                  pointerEvents: "none",
+                  transform: "translate(-50%,-120%)",
+                  color: p.color || "#fff",
+                  fontSize: "0.75rem",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {p.label}
+              </Html>
+            </group>
+          );
+        })}
 
-  const handleToggle = (index: number) => {
-    setOpenCategory(prev => (prev === index ? null : index));
-  };
+        <ambientLight intensity={0.7} />
+        <pointLight position={[5, 3, 5]} intensity={1.5} color="#92b7ff" />
 
-  return (
-    <section id="stack" className="bg-[#060818] py-28 px-4 text-white">
-      <div className="mx-auto mb-14 max-w-6xl text-center">
-        <h2 className="text-4xl font-extrabold">
-          Tech <span className="text-fuchsia-500">Stack</span>
-        </h2>
-      </div>
-
-      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-3">
-        {categories.map((category, index) => (
-          <TechCategoryCard
-            key={category.title}
-            category={category}
-            isOpen={openCategory === index}
-            onToggle={() => handleToggle(index)}
-          />
-        ))}
-      </div>
+        {/* user can spin / zoom */}
+        <OrbitControls
+          enablePan={false}
+          minDistance={2}
+          maxDistance={5}
+          autoRotate
+          autoRotateSpeed={0.6}
+        />
+      </Canvas>
     </section>
   );
 }
