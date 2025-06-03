@@ -1,3 +1,4 @@
+// app/section3.tsx
 "use client";
 
 import { Suspense, useState, useRef } from "react";
@@ -5,7 +6,6 @@ import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Html, Stars } from "@react-three/drei";
 import * as THREE from "three";
 
-/* ----------------  DATA  ---------------- */
 type Pin = { label: string; lat: number; lon: number; color?: string };
 
 const pins: Pin[] = [
@@ -29,7 +29,6 @@ const pins: Pin[] = [
   { label: "GitHub",     lat: -60, lon: 288, color: "#181717" },
 ];
 
-/* ----------------  HELPERS  ---------------- */
 const toXYZ = (lat: number, lon: number, r = 1.02) => {
   const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lon + 180) * (Math.PI / 180);
@@ -40,7 +39,6 @@ const toXYZ = (lat: number, lon: number, r = 1.02) => {
   ];
 };
 
-/* ----------------  ATMOSPHERE  ---------------- */
 function Atmosphere() {
   return (
     <mesh scale={1.05}>
@@ -55,17 +53,22 @@ function Atmosphere() {
   );
 }
 
-/* ----------------  EARTH   ---------------- */
-function Earth({ active, setActive }: { active: string | null; setActive: (l: string | null) => void }) {
+function Earth({
+  active,
+  setActive,
+}: {
+  active: string | null;
+  setActive: (l: string | null) => void;
+}) {
   const [colorMap, bumpMap] = useLoader(THREE.TextureLoader, [
     "/earth1.jpg",
     "/earth_bump.jpg",
   ]);
 
-  /* continuous spin */
   const earthRef = useRef<THREE.Mesh>(null);
   useFrame(({ clock }) => {
-    if (earthRef.current) earthRef.current.rotation.y = clock.getElapsedTime() * 0.04;
+    if (earthRef.current)
+      earthRef.current.rotation.y = clock.getElapsedTime() * 0.04;
   });
 
   return (
@@ -82,14 +85,30 @@ function Earth({ active, setActive }: { active: string | null; setActive: (l: st
         />
       </mesh>
 
-      {/* latitude rings for sci‑fi vibe */}
+      {/* latitude rings for sci-fi vibe */}
       {[60, 0, -60].map((lat) => {
-        const ring = new THREE.EllipseCurve(0, 0, Math.cos(lat * Math.PI / 180), Math.cos(lat * Math.PI / 180), 0, 2 * Math.PI);
-        const pts = ring.getSpacedPoints(128).map((p) => new THREE.Vector3(p.x, Math.sin(lat * Math.PI / 180), p.y));
-        const geo = new THREE.BufferGeometry().setFromPoints(pts);
+        const radius = Math.cos((lat * Math.PI) / 180);
+        const ellipse = new THREE.EllipseCurve(
+          0,
+          0,
+          radius,
+          radius,
+          0,
+          2 * Math.PI
+        );
+        const points = ellipse.getSpacedPoints(128).map((pt) => {
+          return new THREE.Vector3(pt.x, Math.sin((lat * Math.PI) / 180), pt.y);
+        });
         return (
-          <line key={lat} geometry={geo}>
-            <lineBasicMaterial color="#1e40af" linewidth={1} transparent opacity={0.25} />
+          <line key={lat}>
+            <bufferGeometry attach="geometry" setFromPoints={points} />
+            <lineBasicMaterial
+              attach="material"
+              color="#1e40af"
+              linewidth={1}
+              transparent
+              opacity={0.25}
+            />
           </line>
         );
       })}
@@ -131,16 +150,14 @@ function Earth({ active, setActive }: { active: string | null; setActive: (l: st
   );
 }
 
-/* ----------------  MAIN SECTION  ---------------- */
 export default function SectionThree() {
   const [active, setActive] = useState<string | null>(null);
 
-  /* auto‑rotate pause logic handled by OrbitControls' built‑in damping */
   return (
     <section id="tech-vault" className="relative h-screen w-full bg-[#060818]">
       {/* Fixed holographic heading */}
       <h2 className="pointer-events-none absolute left-1/2 top-10 z-10 -translate-x-1/2 whitespace-nowrap text-4xl font-extrabold tracking-wide text-white md:text-5xl">
-        <span className="animate-pulse text-fuchsia-500">Tech Vault</span>
+        <span className="animate-pulse text-fuchsia-500">Tech Vault</span>
       </h2>
 
       <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 4], fov: 45 }}>
