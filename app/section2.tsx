@@ -3,8 +3,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Tilt from "react-parallax-tilt";
 import Link from "next/link";
+import { HiOutlineCode } from "react-icons/hi";
 
 /* scroll-reveal */
 const reveal = {
@@ -28,7 +28,7 @@ export function SectionTwo() {
   const formattedOffset =
     (offset >= 0 ? "+" : "-") + String(Math.abs(offset)).padStart(2, "0") + ":00";
 
-  // Tech stack array (split so each appears in its own box)
+  // Tech stack array
   const techStack = [
     "MERN",
     "React",
@@ -45,55 +45,62 @@ export function SectionTwo() {
   ];
 
   return (
-    <section
-      id="portfolio"
-      className="bg-[#060818] pb-32 pt-24 text-white px-4 lg:px-0"
-    >
-      {/* 
-        Responsive grid:
-        - grid-cols-1 for all
-        - md:grid-cols-2 on medium screens
-        - lg:grid-cols-3 on large
-      */}
+    <section id="portfolio" className="bg-[#060818] pb-32 pt-24 text-white px-4 lg:px-0">
       <div className="mx-auto grid max-w-6xl auto-rows-[260px] gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {/* 1 ▸ Immersive R&D (2×2 on lg, full width on smaller) */}
+        {/* 1 ▸ About Me (spans full width and 2 rows on lg) */}
         <motion.article
           variants={reveal}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className={`
-            relative
+            flex flex-col lg:flex-row
             col-span-1 row-span-1
-            lg:col-span-2 lg:row-span-2
+            lg:col-span-3 lg:row-span-2
             overflow-hidden
             rounded-3xl
             bg-[#11121d]
             ${hoverFX}
           `}
         >
-          <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} className="h-full w-full">
-            <motion.div
-              animate={{ y: [0, -12, 0] }}
-              transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
-              className="h-full w-full"
-            >
-              <Image
-                src="/myai2.jpeg"
-                alt="AR tablet mock-up"
-                fill
-                priority
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <h3 className="relative z-10 max-w-sm p-6 text-2xl font-semibold leading-tight">
-                Crafting intelligent systems that blend neural rendering and interactivity
-              </h3>
-            </motion.div>
-          </Tilt>
+          {/* Left side: Overview text */}
+          <div className="flex-1 p-6 lg:pr-12 lg:pl-8 flex flex-col justify-center">
+            <h3 className="text-3xl font-semibold leading-snug mb-4">About Me</h3>
+
+            <p className="text-sm text-gray-300 mb-2">
+              Hi, I’m <span className="text-sky-400 font-medium">Ansh Bhanushali</span>. I’m a junior at the University of Cincinnati pursuing Computer Science with a minor in Finance. Ever since I wrote my first algorithm in high school, I’ve been captivated by how AI powered software can address real world challenges.
+            </p>
+
+            <p className="text-sm text-gray-300 mb-2">
+              At <span className="text-indigo-400 font-medium">Siemens</span> I interned on a team building GenAI solutions on Azure. I helped develop automated workflows that processed large datasets with machine learning models and deployed them on Azure Kubernetes Service. Working alongside data scientists and software engineers taught me how to design scalable web services and leverage Azure Cognitive Services for real time analytics.
+            </p>
+
+            <p className="text-sm text-gray-300 mb-2">
+              As a  <span className="text-indigo-400 font-medium">research assistant</span> I assisted with research on voice modulation for assistive technologies. My role involves implementing signal processing pipelines that use Python and PyTorch to adapt speech output dynamically. Our prototype won a best poster award at the CEAS symposium, and I continue refining algorithms that make synthetic voices sound more natural.
+            </p>
+
+            <p className="text-sm text-gray-300 mb-2">
+              Beyond internships and research, I mentor first year engineering students in CEAS lab coding sessions. I organize weekly “AI and Engineering” meetups to demonstrate building full stack applications with FastAPI and React. Hands on collaboration drives my belief that learning by doing accelerates mastery.
+            </p>
+
+            <p className="text-sm text-gray-300">
+              When I’m not coding or in lab, I’m exploring the latest AI papers or shooting hoops with friends. I also enjoy hiking on the Little Miami Scenic Trail. My goal is to build intelligent systems that feel seamless and empowering so people can focus on creative problem solving instead of fighting with technology.
+            </p>
+          </div>
+
+          {/* Right side: Your photo (vertically centered) */}
+          <div className="relative flex-1 w-full h-0 lg:h-auto lg:w-auto lg:max-w-xs self-center">
+            <Image
+              src="/myphoto.jpeg"
+              alt="Ansh Bhanushali"
+              width={400}
+              height={400}
+              className="object-cover rounded-tr-3xl rounded-br-3xl lg:rounded-tl-none lg:rounded-bl-none lg:rounded-br-3xl"
+            />
+          </div>
         </motion.article>
 
-        {/* 2 ▸ Rotating globe + timezone (full width on smaller, spans 1 column on all) */}
+        {/* 2 ▸ Rotating globe + timezone (row 3, col 1 on lg) */}
         <motion.article
           custom={1}
           variants={reveal}
@@ -103,6 +110,7 @@ export function SectionTwo() {
           className={`
             relative
             col-span-1 row-span-1
+            lg:col-span-1 lg:row-start-3 lg:col-start-1
             overflow-hidden
             rounded-3xl
             bg-[#11121d]
@@ -151,50 +159,56 @@ export function SectionTwo() {
           </div>
         </motion.article>
 
-        {/* 3 ▸ Tech-stack card (styled like screenshot, stacked on small screens) */}
+        {/* 3 ▸ My Tech Stack (revamped, badges wrap side by side) */}
         <motion.article
-          custom={2}
-          variants={reveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className={`
-            flex flex-col
-            sm:flex-col
-            md:flex-col
-            lg:flex-row
-            overflow-hidden
-            rounded-3xl
-            bg-[#11121d]
-            ${hoverFX}
-          `}
-        >
-          {/* Left side: heading/text */}
-          <div className="flex-1 flex flex-col justify-center px-6 py-4">
-            <p className="text-sm text-gray-400">I constantly try to improve</p>
-            <h3 className="mt-2 text-3xl font-bold leading-snug">My tech stack</h3>
-          </div>
+  custom={2}
+  variants={reveal}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  className={`
+    flex flex-col
+    col-span-1 row-span-1
+    lg:col-span-1 lg:row-start-3 lg:col-start-2
+    overflow-hidden
+    rounded-3xl
+    bg-gradient-to-br from-[#1f2028] to-[#11121d]
+    ${hoverFX}
+  `}
+>
+  {/* Left side: Icon + heading */}
+  <div className="flex-1 flex flex-col justify-center px-6 py-4">
+    <div className="flex items-center gap-2">
+      <HiOutlineCode className="h-6 w-6 text-sky-400" />
+      <h3 className="text-3xl font-bold leading-snug">My Tech Stack</h3>
+    </div>
+    <p className="mt-2 text-sm text-gray-400">
+      These are the tools I love working with every day.
+    </p>
+  </div>
 
-          {/* Right side: grid of tech tags (adjust columns responsively) */}
-          <div className="flex-1 grid grid-cols-2 gap-x-4 gap-y-3 px-6 py-4">
-            {techStack.map((tech) => (
-              <span
-                key={tech}
-                className="
-                  flex items-center justify-center
-                  rounded-lg border border-gray-600
-                  px-4 py-2
-                  text-center text-sm font-medium
-                  transition hover:border-sky-500
-                "
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </motion.article>
+  {/* Right side: 3-4 column grid with purple-glow badges */}
+  <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 px-6 py-4 gap-3">
+    {techStack.map((tech) => (
+      <span
+        key={tech}
+        className="
+          flex items-center justify-center
+          rounded-full border border-gray-600
+          bg-gray-800 px-4 py-1 text-xs font-medium text-gray-200
+          transition
+          hover:border-purple-500 hover:bg-purple-700 hover:text-white
+          hover:shadow-[0_0_8px_rgba(171,0,255,0.7)]
+        "
+      >
+        {tech}
+      </span>
+    ))}
+  </div>
+</motion.article>
 
-        {/* 4 ▸ Enhanced “Infinite curiosity” bio */}
+
+        {/* 4 ▸ Enhanced “Infinite curiosity” bio (row 3, col 3 on lg) */}
         <motion.article
           custom={3}
           variants={reveal}
@@ -204,6 +218,7 @@ export function SectionTwo() {
           className={`
             relative
             col-span-1 row-span-1
+            lg:col-span-1 lg:row-start-3 lg:col-start-3
             overflow-hidden
             rounded-3xl
             bg-gradient-to-br from-[#11121d] to-[#1e1f2a]
@@ -242,7 +257,7 @@ export function SectionTwo() {
           </motion.div>
         </motion.article>
 
-        {/* 5 ▸ CTA */}
+        {/* 5 ▸ CTA (row 4, col 1 on lg) */}
         <motion.article
           custom={4}
           variants={reveal}
@@ -251,6 +266,7 @@ export function SectionTwo() {
           viewport={{ once: true }}
           className={`
             col-span-1 row-span-1
+            lg:col-span-1 lg:row-start-4 lg:col-start-1
             overflow-hidden
             rounded-3xl
             bg-gradient-to-br from-fuchsia-600 via-indigo-600 to-cyan-500
@@ -272,7 +288,7 @@ export function SectionTwo() {
           </div>
         </motion.article>
 
-        {/* 6 ▸ Code + design merge (2 cols) */}
+        {/* 6 ▸ Code + design merge (row 4, cols 2–3 on lg) */}
         <motion.article
           custom={5}
           variants={reveal}
@@ -282,8 +298,7 @@ export function SectionTwo() {
           className={`
             relative
             col-span-1 row-span-1
-            md:col-span-2 md:row-span-1
-            lg:col-span-2 lg:row-span-1
+            lg:col-span-2 lg:row-start-4 lg:col-start-2
             overflow-hidden
             rounded-3xl
             bg-[#11121d]

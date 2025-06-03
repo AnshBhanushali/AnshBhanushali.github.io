@@ -7,14 +7,16 @@ export default function Hero() {
     <section className="hero relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 text-center">
       {/* headline */}
       <h1 className="max-w-4xl text-4xl font-extrabold leading-snug sm:text-5xl md:text-6xl lg:text-7xl lg:leading-tight drop-shadow-xl">
-        Engineering the&nbsp;
-        <span className="text-sky-400">Future</span>&nbsp;of&nbsp;
+        Hey, I'm <span className="text-sky-400">Ansh <span className="text-fuchsia-500"></span>Bhanushali</span> Crafting&nbsp;
         <span className="text-fuchsia-500">Intelligent Systems</span>
       </h1>
 
-      <p className="mt-6 max-w-xl text-base sm:text-lg md:text-xl text-gray-200 px-2">
-        Hii, I am Ansh Bhanushali. I design &amp; code immersive, AI-driven experiences that feel right in the metaverse.
-      </p>
+      <p className="mt-5 max-w-5xl text-base sm:text-lg md:text-xl text-gray-200 px-4">
+  I'm currently a junior at the University of Cincinnati, pursuing a major in Computer Science with a minor in Finance. My passion lies in creating intelligent, AI-driven solutions that solve real-world problems. I specialize in building seamless digital experiences, merging elegant design with powerful engineering. Whether it’s crafting smart applications, experimenting with emerging technologies, or pushing the boundaries of what’s possible, I thrive at the intersection of innovation, creativity, and impact.
+</p>
+
+
+
 
       <Link
         href="#projects"
