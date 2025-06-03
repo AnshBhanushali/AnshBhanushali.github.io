@@ -2,12 +2,10 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
 
   // Once the user scrolls down > 20px, add a faint backdrop + blur
   useEffect(() => {
