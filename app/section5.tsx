@@ -1,9 +1,16 @@
+// app/section5.tsx
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiChevronDown } from "react-icons/hi";
-import { SiNextdotjs, SiTypescript, SiPython, SiDocker, SiSolidity, SiPostgresql, SiFirebase} from "react-icons/si";
+import {
+  SiPython,
+  SiNextdotjs,
+  SiDocker,
+  SiTensorflow,
+  SiPostgresql,
+} from "react-icons/si";
 
 /* ---------- DATA ---------- */
 type Job = {
@@ -16,26 +23,40 @@ type Job = {
 
 const jobs: Job[] = [
   {
-    title: "Research Assistant – Software R&D",
-    company: "Siemens Digital Industries",
-    dates: "Aug 2024 – Present",
+    title: "Research Assistant – Software R&D",
+    company: "Dr. Novak Lab",
+    dates: "Apr 2024 – Jan 2025",
     summary: [
-      "Prototyped a physics‑based simulation engine for industrial digital twins (C++ / Python).",
-      "Built CI/CD pipeline in GitLab CI; containerised workloads with Docker & Helm.",
-      "Optimised finite‑element algorithms → 20 % faster ℹ️ throughput on test rigs.",
+      "Developed a PyTorch-based real-time voice-modulation network, reducing latency to < 50 ms for on-device inference.",
+      "Built a React/Next.js dashboard with WebSocket streams for live audio-feature visualization.",
+      "Implemented TensorFlow Lite vocal-tract synthesis pipeline for mobile-friendly deployment.",
+      "Automated CI/CD with GitHub Actions and Docker containers to manage nightly model training runs.",
     ],
-    tech: [SiPython, SiDocker],
+    tech: [SiPython, SiNextdotjs, SiTensorflow, SiDocker],
   },
   {
-    title: "Software Developer",
-    company: "CEAS Innovation Lab",
-    dates: "Jan 2023 – Aug 2024",
+    title: "Software Developer – ML & AI",
+    company: "CEAS Innovation Lab",
+    dates: "Aug 2023 – Dec 2023",
     summary: [
-      "Led development of an internal asset‑tracking dashboard in Next.js + TypeScript.",
-      "Integrated Azure AD SSO & RBAC; reduced on‑boarding time for 200+ lab members.",
-      "Instrumented PostgreSQL + Grafana monitoring; cut query latency 35 %.",
+      "Engineered FastAPI microservices for predictive-maintenance, leveraging scikit-learn on telemetry data.",
+      "Containerized anomaly-detection models with Docker and deployed on Azure Kubernetes Service (AKS).",
+      "Ingested real-time sensor streams via Kafka; visualized live failure probabilities in Plotly dashboards.",
+      "Orchestrated ETL pipelines using Apache Airflow; secured REST endpoints with JWT authentication.",
     ],
-    tech: [SiNextdotjs, SiTypescript, SiPostgresql],
+    tech: [SiPython, SiDocker, SiPostgresql ],
+  },
+  {
+    title: "Software Engineer – Industrial IoT",
+    company: "Siemens Digital Industries",
+    dates: "Aug 2024 – Present",
+    summary: [
+      "Leading AWS serverless development: authored Lambda functions for real-time anomaly detection (PyTorch + SageMaker).",
+      "Built Next.js/Tailwind UI to display live equipment metrics over MQTT and WebSocket.",
+      "Containerized inference services with Docker; orchestrated on ECS Fargate for scalable ML deployment.",
+      "Implemented CI/CD pipelines via GitHub Actions; enforced end-to-end encryption using AWS KMS.",
+    ],
+    tech: [SiPython, SiNextdotjs, SiDocker],
   },
 ];
 
@@ -56,7 +77,7 @@ export default function SectionFive() {
   return (
     <section id="experience" className="bg-[#060818] py-32 px-4 text-white lg:px-0">
       <h2 className="mb-14 text-center text-4xl font-extrabold">
-        My&nbsp;<span className="text-fuchsia-500">Work Experience</span>
+        My&nbsp;<span className="text-fuchsia-500">Work Experience</span>
       </h2>
 
       <div className="mx-auto flex max-w-6xl flex-col gap-6">
@@ -75,12 +96,12 @@ export default function SectionFive() {
               {/* HEADER */}
               <header className="flex h-[70px] items-center justify-between px-6">
                 <div className="flex flex-col">
-                  <span className="font-semibold">{j.title}</span>
+                  <span className="font-semibold text-white">{j.title}</span>
                   <span className="text-sm text-gray-400">{j.company}</span>
                 </div>
                 <HiChevronDown
-                  className={`h-6 w-6 shrink-0 transition-transform ${
-                    isOpen ? "rotate-180" : ""
+                  className={`h-6 w-6 shrink-0 text-gray-400 transition-transform ${
+                    isOpen ? "rotate-180 text-fuchsia-500" : ""
                   }`}
                 />
               </header>
@@ -96,7 +117,7 @@ export default function SectionFive() {
                     exit="hidden"
                     className="px-6 pb-6"
                   >
-                    <p className="mb-1 text-xs text-gray-400">{j.dates}</p>
+                    <p className="mb-2 text-xs text-gray-400">{j.dates}</p>
                     <ul className="mb-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-gray-300">
                       {j.summary.map((pt) => (
                         <li key={pt}>{pt}</li>
@@ -104,7 +125,7 @@ export default function SectionFive() {
                     </ul>
                     <div className="flex flex-wrap gap-2">
                       {j.tech.map((Icon, k) => (
-                        <Icon key={k} className="h-5 w-5 text-gray-400" />
+                        <Icon key={k} className="h-5 w-5 text-gray-400 hover:text-white transition" />
                       ))}
                     </div>
                   </motion.div>
