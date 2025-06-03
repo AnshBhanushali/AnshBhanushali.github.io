@@ -135,7 +135,15 @@ export default function Hero() {
           animation: scan 6s linear infinite;
           z-index: -1;
         }
-      `}</style>
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, #060818 100%);
+            pointer-events: none;
+            z-index: -1;
+          }
+        `}</style>
     </section>
   );
 }
