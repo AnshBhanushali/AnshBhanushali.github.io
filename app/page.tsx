@@ -6,6 +6,7 @@ import SectionThree from "./section3";
 import SectionFour from "./section4"
 import SectionFive from "./section5"
 import SectionSix from "./section6"
+import Footer from "./Footer"
 
 export const metadata = {
   title: "Ansh Bhanushali | Metaverse-Ready Engineer",
@@ -24,8 +25,7 @@ export default function Page() {
       <SectionFour />
       <SectionFive />
       <SectionSix />
-
-      import SectionThree from "@/components/SectionThree";
+      <Footer />
     </main>
   );
 }
