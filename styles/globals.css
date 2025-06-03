@@ -1,0 +1,25 @@
+/* ========= Animated aurora background ========= */
+@keyframes aurora {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .bg-aurora {
+    background: linear-gradient(130deg,
+                #041418 0%,    /* deep teal */
+                #071f2c 20%,
+                #0b263a 40%,
+                #18244c 60%,
+                #24234e 80%,
+                #311d4b 100%);
+    background-size: 300% 300%;
+    animation: aurora 15s ease-in-out infinite;
+  }
+  
+  /* ========= Subtle noise texture ========= */
+  .bg-noise {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' fill='white' opacity='0.05'><rect width='1' height='1'/></svg>");
+    background-size: 160px 160px;
+  }
+  
