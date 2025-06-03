@@ -7,6 +7,7 @@ import SectionFour from "./section4"
 import SectionFive from "./section5"
 import SectionSix from "./section6"
 import Footer from "./Footer"
+import Header from "./Header"
 
 export const metadata = {
   title: "Ansh Bhanushali | Metaverse-Ready Engineer",
@@ -16,6 +17,7 @@ export const metadata = {
 export default function Page() {
   return (
     <main className="text-white">
+      <Header />
       {/* ===== META HERO ===== */}
       <Hero />
 
