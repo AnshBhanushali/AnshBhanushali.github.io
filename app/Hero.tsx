@@ -4,22 +4,22 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="hero relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+    <section className="hero relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 text-center">
       {/* headline */}
-      <h1 className="max-w-5xl text-5xl font-extrabold leading-tight md:text-7xl md:leading-tight drop-shadow-xl">
+      <h1 className="max-w-4xl text-4xl font-extrabold leading-snug sm:text-5xl md:text-6xl lg:text-7xl lg:leading-tight drop-shadow-xl">
         Engineering the&nbsp;
         <span className="text-sky-400">Future</span>&nbsp;of&nbsp;
         <span className="text-fuchsia-500">Intelligent Systems</span>
       </h1>
 
-      <p className="mt-8 max-w-2xl text-lg md:text-2xl text-gray-200">
+      <p className="mt-6 max-w-xl text-base sm:text-lg md:text-xl text-gray-200 px-2">
         I design &amp; code immersive, AI-driven experiences that feel right in the metaverse.
       </p>
 
       <Link
         href="#projects"
-        className="mt-12 inline-flex items-center gap-2 rounded-full border border-sky-400/70
-                   px-10 py-4 font-semibold backdrop-blur-md transition-transform hover:scale-105"
+        className="mt-8 sm:mt-10 inline-flex items-center gap-2 rounded-full border border-sky-400/70
+                   px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold backdrop-blur-md transition-transform hover:scale-105"
       >
         Explore Portfolio
         <svg
@@ -94,8 +94,8 @@ export default function Hero() {
           inset: 0;
           background: linear-gradient(
             to bottom,
-            rgba(0, 0, 0, 0) 60%,
-            #000 100%
+            rgba(0, 0, 0, 0) 75%,
+            #060818 100%
           );
           pointer-events: none;
           z-index: -1;
@@ -135,15 +135,7 @@ export default function Hero() {
           animation: scan 6s linear infinite;
           z-index: -1;
         }
-        .hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 75%, #060818 100%);
-            pointer-events: none;
-            z-index: -1;
-          }
-        `}</style>
+      `}</style>
     </section>
   );
 }

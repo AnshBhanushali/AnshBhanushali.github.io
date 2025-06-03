@@ -49,14 +49,28 @@ export function SectionTwo() {
       id="portfolio"
       className="bg-[#060818] pb-32 pt-24 text-white px-4 lg:px-0"
     >
-      <div className="mx-auto grid max-w-6xl auto-rows-[260px] gap-6 lg:grid-cols-3">
-        {/* 1 ▸ Immersive R&D (2×2) */}
+      {/* 
+        Responsive grid:
+        - grid-cols-1 for all
+        - md:grid-cols-2 on medium screens
+        - lg:grid-cols-3 on large
+      */}
+      <div className="mx-auto grid max-w-6xl auto-rows-[260px] gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {/* 1 ▸ Immersive R&D (2×2 on lg, full width on smaller) */}
         <motion.article
           variants={reveal}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className={`relative col-span-2 row-span-2 overflow-hidden rounded-3xl bg-[#11121d] ${hoverFX}`}
+          className={`
+            relative
+            col-span-1 row-span-1
+            lg:col-span-2 lg:row-span-2
+            overflow-hidden
+            rounded-3xl
+            bg-[#11121d]
+            ${hoverFX}
+          `}
         >
           <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} className="h-full w-full">
             <motion.div
@@ -73,25 +87,31 @@ export function SectionTwo() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <h3 className="relative z-10 max-w-sm p-6 text-2xl font-semibold leading-tight">
-              Crafting intelligent systems that blend neural rendering and interactivity
+                Crafting intelligent systems that blend neural rendering and interactivity
               </h3>
             </motion.div>
           </Tilt>
         </motion.article>
 
-        {/* 2 ▸ Rotating globe + timezone */}
+        {/* 2 ▸ Rotating globe + timezone (full width on smaller, spans 1 column on all) */}
         <motion.article
           custom={1}
           variants={reveal}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className={`relative flex flex-col justify-between overflow-hidden rounded-3xl bg-[#11121d] ${hoverFX}`}
+          className={`
+            relative
+            col-span-1 row-span-1
+            overflow-hidden
+            rounded-3xl
+            bg-[#11121d]
+            ${hoverFX}
+            flex flex-col justify-between
+          `}
         >
           <div className="px-6 pt-6">
-            <h3 className="text-xl font-semibold">
-              Across-time-zone collaboration
-            </h3>
+            <h3 className="text-xl font-semibold">Across-time-zone collaboration</h3>
             <p className="mt-2 text-sm text-gray-300">
               🌐 Collaborate 24/7 — no matter the clock
             </p>
@@ -131,29 +151,42 @@ export function SectionTwo() {
           </div>
         </motion.article>
 
-        {/* 3 ▸ Tech-stack card (styled like the screenshot) */}
+        {/* 3 ▸ Tech-stack card (styled like screenshot, stacked on small screens) */}
         <motion.article
           custom={2}
           variants={reveal}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className={`flex overflow-hidden rounded-3xl bg-[#11121d] ${hoverFX}`}
+          className={`
+            flex flex-col
+            sm:flex-col
+            md:flex-col
+            lg:flex-row
+            overflow-hidden
+            rounded-3xl
+            bg-[#11121d]
+            ${hoverFX}
+          `}
         >
           {/* Left side: heading/text */}
-          <div className="flex-1 flex flex-col justify-center px-6">
+          <div className="flex-1 flex flex-col justify-center px-6 py-4">
             <p className="text-sm text-gray-400">I constantly try to improve</p>
-            <h3 className="mt-2 text-3xl font-bold leading-snug">
-              My tech stack
-            </h3>
+            <h3 className="mt-2 text-3xl font-bold leading-snug">My tech stack</h3>
           </div>
 
-          {/* Right side: grid of tech tags */}
-          <div className="flex-1 grid grid-cols-2 gap-x-4 gap-y-3 p-6">
+          {/* Right side: grid of tech tags (adjust columns responsively) */}
+          <div className="flex-1 grid grid-cols-2 gap-x-4 gap-y-3 px-6 py-4">
             {techStack.map((tech) => (
               <span
                 key={tech}
-                className="flex items-center justify-center rounded-lg border border-gray-600 px-4 py-2 text-center text-sm font-medium transition hover:border-sky-500"
+                className="
+                  flex items-center justify-center
+                  rounded-lg border border-gray-600
+                  px-4 py-2
+                  text-center text-sm font-medium
+                  transition hover:border-sky-500
+                "
               >
                 {tech}
               </span>
@@ -168,7 +201,16 @@ export function SectionTwo() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className={`relative flex items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-[#11121d] to-[#1e1f2a] p-6 ${hoverFX}`}
+          className={`
+            relative
+            col-span-1 row-span-1
+            overflow-hidden
+            rounded-3xl
+            bg-gradient-to-br from-[#11121d] to-[#1e1f2a]
+            ${hoverFX}
+            flex items-center justify-center
+            px-6 py-4
+          `}
         >
           <motion.div
             initial={{ scale: 1 }}
@@ -207,9 +249,17 @@ export function SectionTwo() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="rounded-3xl bg-gradient-to-br from-fuchsia-600 via-indigo-600 to-cyan-500 p-1 hover:shadow-[0_0_28px_-6px_rgba(0,182,255,0.55)] transition"
+          className={`
+            col-span-1 row-span-1
+            overflow-hidden
+            rounded-3xl
+            bg-gradient-to-br from-fuchsia-600 via-indigo-600 to-cyan-500
+            ${hoverFX}
+            flex items-center justify-center
+            px-6 py-4
+          `}
         >
-          <div className="flex flex-col items-center justify-center gap-6 rounded-[inherit] bg-[#0b0c14] p-8 text-center">
+          <div className="flex flex-col items-center justify-center gap-6 bg-[#0b0c14] p-6 rounded-[inherit] text-center">
             <h3 className="text-lg font-semibold md:text-xl">
               Ready to build something visionary?
             </h3>
@@ -229,7 +279,17 @@ export function SectionTwo() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className={`relative col-span-2 overflow-hidden rounded-3xl bg-[#11121d] ${hoverFX}`}
+          className={`
+            relative
+            col-span-1 row-span-1
+            md:col-span-2 md:row-span-1
+            lg:col-span-2 lg:row-span-1
+            overflow-hidden
+            rounded-3xl
+            bg-[#11121d]
+            ${hoverFX}
+            flex items-end justify-end
+          `}
         >
           <Image
             src="/ai.png"
@@ -238,7 +298,7 @@ export function SectionTwo() {
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/45 to-black/90" />
-          <div className="relative z-10 flex h-full flex-col justify-end gap-2 p-6">
+          <div className="relative z-10 flex w-full flex-col justify-end gap-2 p-6">
             <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
               Spotlight
             </span>
