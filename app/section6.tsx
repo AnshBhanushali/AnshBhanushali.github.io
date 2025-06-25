@@ -93,7 +93,7 @@ export default function SectionSix() {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("ansh@example.com");
+    navigator.clipboard.writeText("bhanusad@mail.uc.edu");
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
   };
